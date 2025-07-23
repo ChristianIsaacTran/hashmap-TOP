@@ -72,6 +72,10 @@ console.log(newHashMap.values());
 // entries() test
 console.log(newHashMap.entries());
 
+// update when setting the same key test
+newHashMap.set("jacket", "NEW VALUE");
+console.log(newHashMap.entries());
+
 
 // clear() test
 newHashMap.clear();
