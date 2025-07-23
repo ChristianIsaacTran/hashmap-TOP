@@ -13,6 +13,16 @@ export default function hashMap() {
     // note: starting with a capacity of 8 (a number that is in the power of ^2) to ensure that the indexing hash code distributes values as evenly as possible in our array
     // note: strings will be the main datatype of our keys
 
+    function displayArrVisual() {
+        for (let i = 0; i < bucketArr.length; i += 1) {
+            if (bucketArr[i] === null || bucketArr[i] === undefined) {
+                continue;
+            } else {
+                bucketArr[i].toString();
+            }
+        }
+    }
+
     /* 
     takes a key input and produces a hash code, and then mods it to produce an index inside our hashmap buckets array
     output: index thats within our array size
@@ -310,6 +320,7 @@ export default function hashMap() {
         keys,
         values,
         entries,
-        rehash
+        rehash,
+        displayArrVisual
     };
 }
