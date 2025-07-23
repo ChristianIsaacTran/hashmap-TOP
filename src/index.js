@@ -37,3 +37,4 @@ newHashMap.set("lion", "golden");
 
 console.log(newHashMap.keys());
 console.log(newHashMap.values());
+console.log(newHashMap.entries());

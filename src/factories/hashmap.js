@@ -73,7 +73,7 @@ export default function hashMap() {
                 console.log(
                     `Collision detected (different key, same index): ${key}, adding collision to end of linked list bucket`,
                 );
-                bucketArr[index].append(value, key);
+                bucketArr[index].append(key, value);
             }
         }
 
@@ -232,7 +232,21 @@ export default function hashMap() {
         return valArr;
     }
 
-    // function entries() {}
+    // returns an array that contains each key, value pair in the form [[key, value]]
+    function entries() {
+        const entriesArr = [];
 
-    return { hash, set, get, has, remove, length, clear, keys, values };
+        for(let i = 0;  i < bucketArr.length; i += 1) {
+            // skip any empty buckets found
+            if(bucketArr[i] === null || bucketArr[i] === undefined) {
+                continue; 
+            } else {
+            bucketArr[i].addEntriesToArr(entriesArr);
+            }
+        }
+
+        return entriesArr;
+    }
+
+    return { hash, set, get, has, remove, length, clear, keys, values, entries };
 }

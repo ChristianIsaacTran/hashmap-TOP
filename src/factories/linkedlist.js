@@ -235,13 +235,13 @@ export default function linkedList() {
 
         // check if givenIndex is 0. If it is, then just insert this node as the head/start of the list (prepend)
         if (givenIndex === 0) {
-            prepend(inputValue, inputKey);
+            prepend(inputKey, inputValue);
             return;
         }
 
         // check if givenIndex is size() -1, if it is then append it to the end of the list (append)
         if (givenIndex === size() - 1) {
-            append(inputValue, inputKey);
+            append(inputKey, inputValue);
             return;
         }
 
@@ -395,6 +395,25 @@ export default function linkedList() {
         return tempArr;
     }
 
+    // iterates throught he entire linked list and adds both key value pairs into given array
+    function addEntriesToArr(givenArr) {
+        const tempArr = givenArr;
+
+        // if the linkedlist is empty (edge case 1), return error message
+        if (head === null) {
+            return console.log("Head = null, linked list is empty");
+        }
+
+        let curr = head;
+
+        while (curr !== null) {
+            tempArr.push([curr.nodeKey, curr.nodeValue]);
+            curr = curr.nextNode;
+        }
+
+        return tempArr;
+    }
+
     return {
         append,
         toString,
@@ -411,6 +430,7 @@ export default function linkedList() {
         updateExistingNode,
         getNodeValue,
         addKeysToArr,
-        addValuesToArr
+        addValuesToArr,
+        addEntriesToArr
     };
 }
