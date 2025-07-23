@@ -200,11 +200,25 @@ export default function hashMap() {
         bucketArr = [];
     }
 
-    // function keys() {}
+    // returns an array containing all keys inside the hash map
+    function keys() {
+        const keyArr = [];
+
+        for(let i = 0;  i < bucketArr.length; i += 1) {
+            // skip any empty buckets found
+            if(bucketArr[i] === null || bucketArr[i] === undefined) {
+                continue; 
+            } else {
+            bucketArr[i].addKeysToArr(keyArr);
+            }
+        }
+
+        return keyArr;
+    }
 
     // function values() {}
 
     // function entries() {}
 
-    return { hash, set, get, has, remove, length, clear };
+    return { hash, set, get, has, remove, length, clear, keys };
 }

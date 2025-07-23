@@ -358,6 +358,25 @@ export default function linkedList() {
 
     }
 
+    // iterates through the entire linked list and adds each key found into the given array
+    function addKeysToArr(givenArr) {
+        const tempArr = givenArr;
+        
+        // if the linkedlist is empty (edge case 1), return error message
+        if (head === null) {
+            return console.log("Head = null, linked list is empty");
+        }
+
+        let curr = head;
+
+        while(curr !== null) {
+            tempArr.push(curr.nodeKey);
+            curr = curr.nextNode;
+        }
+
+        return tempArr;
+    }
+
     return {
         append,
         toString,
@@ -372,6 +391,7 @@ export default function linkedList() {
         insertAt,
         removeAt,
         updateExistingNode,
-        getNodeValue
+        getNodeValue,
+        addKeysToArr
     };
 }
