@@ -350,18 +350,17 @@ export default function linkedList() {
 
         let curr = head;
 
-        for(let i = 0; i < existingNodeIndex; i += 1) {
+        for (let i = 0; i < existingNodeIndex; i += 1) {
             curr = curr.nextNode;
         }
 
         return curr.nodeValue;
-
     }
 
     // iterates through the entire linked list and adds each key found into the given array
     function addKeysToArr(givenArr) {
         const tempArr = givenArr;
-        
+
         // if the linkedlist is empty (edge case 1), return error message
         if (head === null) {
             return console.log("Head = null, linked list is empty");
@@ -369,8 +368,27 @@ export default function linkedList() {
 
         let curr = head;
 
-        while(curr !== null) {
+        while (curr !== null) {
             tempArr.push(curr.nodeKey);
+            curr = curr.nextNode;
+        }
+
+        return tempArr;
+    }
+
+    // iterates through the entire linked list and adds each value found into the given array
+    function addValuesToArr(givenArr) {
+        const tempArr = givenArr;
+
+        // if the linkedlist is empty (edge case 1), return error message
+        if (head === null) {
+            return console.log("Head = null, linked list is empty");
+        }
+
+        let curr = head;
+
+        while (curr !== null) {
+            tempArr.push(curr.nodeValue);
             curr = curr.nextNode;
         }
 
@@ -392,6 +410,7 @@ export default function linkedList() {
         removeAt,
         updateExistingNode,
         getNodeValue,
-        addKeysToArr
+        addKeysToArr,
+        addValuesToArr
     };
 }

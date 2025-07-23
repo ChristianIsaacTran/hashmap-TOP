@@ -216,9 +216,23 @@ export default function hashMap() {
         return keyArr;
     }
 
-    // function values() {}
+    // returns an array containing all values inside the hashmap
+    function values() {
+        const valArr = [];
+
+        for(let i = 0;  i < bucketArr.length; i += 1) {
+            // skip any empty buckets found
+            if(bucketArr[i] === null || bucketArr[i] === undefined) {
+                continue; 
+            } else {
+            bucketArr[i].addValuesToArr(valArr);
+            }
+        }
+
+        return valArr;
+    }
 
     // function entries() {}
 
-    return { hash, set, get, has, remove, length, clear, keys };
+    return { hash, set, get, has, remove, length, clear, keys, values };
 }
