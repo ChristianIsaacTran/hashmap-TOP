@@ -1,18 +1,24 @@
 /* eslint-disable no-magic-numbers */
+import linkedList from "./linkedlist.js";
+
+
+
 export default function hashMap() {
+    let bucketArr = [];
+
     // a factor to determine when to grow our buckets array
     let loadFactor = 0.75;
 
     // total buckets we currently have (usually starts with size 16)
     let capacity = 16;
 
-    // note: starting with a capacity of 8 (a number that is in the power of ^2) to ensure that 
+    // note: starting with a capacity of 8 (a number that is in the power of ^2) to ensure that the indexing hash code distributes values as evenly as possible in our array
+    // note: strings will be the main datatype of our keys 
 
-    function hello() {
-        console.log("hello world!");
-    }
-
-    // takes a key input and produces a hash code, and then mods it to produce an index inside our hashmap buckets array
+    /* 
+    takes a key input and produces a hash code, and then mods it to produce an index inside our hashmap buckets array
+    output: index thats within our array size
+    */
     function hash(key) {
         let hashCode = 0;
 
@@ -27,7 +33,13 @@ export default function hashMap() {
         return hashCode;
     }
 
-    // function set(key, value) {}
+    /* 
+    takes in a key and a value and puts the node in that bucket. If there is a collision, handle the collision as discussed in the previous lesson.
+    Also grow the array based on the load factor and the current maximum capacity if needed as the array fills with values (recommended to code this last)
+    */
+    // function set(key, value) {
+
+    // }
 
     // function get(key) {}
 
@@ -45,5 +57,5 @@ export default function hashMap() {
 
     // function entries() {}
 
-    return { hello, hash };
+    return { hash };
 }

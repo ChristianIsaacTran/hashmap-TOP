@@ -5,4 +5,4 @@ import hashMap from "./factories/hashmap.js";
 const newHashMap = hashMap();
 
 
-newHashMap.hello();
+console.log(newHashMap.hash("JIMMY"));
