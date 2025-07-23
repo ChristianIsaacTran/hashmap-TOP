@@ -71,7 +71,7 @@ export default function linkedList() {
     // returns the first node in the linked list
     function getHead() {
         // if linkedlist is empty (edge case 1), then return an error message
-        if(head === null) {
+        if (head === null) {
             return console.log("Head = null, linked list is empty");
         }
 
@@ -83,14 +83,14 @@ export default function linkedList() {
     // returns the last node in the linked list
     function getTail() {
         // if linkedlist is empty is empty (edge case 1), then return an error message
-        if(head === null) {
+        if (head === null) {
             return console.log("Head = null, linked list is empty");
         }
 
         // iterate to the last node and return the last node object.
         let curr = head;
         // if the current node's (curr) next node is null, we know its the last node
-        while(curr.nextNode !== null) {
+        while (curr.nextNode !== null) {
             curr = curr.nextNode;
         }
 
@@ -101,21 +101,23 @@ export default function linkedList() {
     function at(inputIndex) {
         // assuming the linked list starts at 0 index
         // if linkedlist is empty (edge case 1), return an error message
-        if(head === null) {
+        if (head === null) {
             return console.log("Head = null, linked list is empty");
         }
 
         // check if the index given exceeds 0 or size() - 1 (out of bounds)
-        if(inputIndex < 0 || inputIndex > (size() - 1)) {
-            return console.log("Input Index given is out of range of linked list");
+        if (inputIndex < 0 || inputIndex > size() - 1) {
+            return console.log(
+                "Input Index given is out of range of linked list",
+            );
         }
 
         // (edge cases 2 and 3)
-        // iterate through linked list until it reaches inputIndex. 
+        // iterate through linked list until it reaches inputIndex.
         let curr = head;
-        for(let i = 0; i < inputIndex; i += 1) {
+        for (let i = 0; i < inputIndex; i += 1) {
             curr = curr.nextNode;
-        }   
+        }
 
         // return node found at stopped index
         return curr;
@@ -124,20 +126,20 @@ export default function linkedList() {
     // removes the last element from the linked list
     function pop() {
         // if the list is empty (edge case 1), return error message
-        if(head === null) {
+        if (head === null) {
             return console.log("Head = null, linked list is empty");
         }
 
         let curr = head;
-        
+
         // if there is only one node in the linked list (edge case 2), pop the first node and assign null to head, making linked list empty.
-        if(curr.nextNode === null) {
+        if (curr.nextNode === null) {
             head = null;
             return;
         }
 
         // if there is 2 or more nodes in the linked list (edge case 3), iterate until last node, then remove the last node from the 2nd to last node's nextNode pointer
-        while(curr.nextNode.nextNode !== null) {
+        while (curr.nextNode.nextNode !== null) {
             curr = curr.nextNode;
         }
 
@@ -148,21 +150,22 @@ export default function linkedList() {
     // returns a boolean value depending on if the inputValue is in the list or not
     function contains(inputValue) {
         // if the linkedlist is empty (edge case 1), then return an error message/false
-        if(head === null) {
-            console.log("Head = null, linked list is empty. Returning False, value not found.");
+        if (head === null) {
+            console.log(
+                "Head = null, linked list is empty. Returning False, value not found.",
+            );
             return false;
         }
 
-        // (edge case 2 and 3) 
+        // (edge case 2 and 3)
         // iterate through the linkedlist from the head and check if the current node's value matches the input value, or until we reach the end of the linkedlist
-        let curr = head; 
-        while(curr !== null) {
-            if(curr.nodeKey === inputValue) {
+        let curr = head;
+        while (curr !== null) {
+            if (curr.nodeKey === inputValue) {
                 return true;
             }
             curr = curr.nextNode;
         }
-
 
         // return false if we went through the entire linked list and have not found a matching value
         return false;
@@ -171,25 +174,26 @@ export default function linkedList() {
     // returns the index of the node containing the value, or null if the node is not found
     function find(inputValue) {
         // if the linkedlist is empty (edge case 1), then return an error message/null
-        if(head === null) {
-            console.log("Head = null, linked list is empty. Returning NULL, value not found.");
+        if (head === null) {
+            console.log(
+                "Head = null, linked list is empty. Returning NULL, value not found.",
+            );
             return null;
         }
 
-        // (edge case 2 and 3) 
+        // (edge case 2 and 3)
         // iterate through the linkedlist from the head and check if the current node's value matches the input value, or until we reach the end of the linkedlist
-        let curr = head; 
+        let curr = head;
 
         // return index of found node (assuming 0 index)
-        let indexCount = 0; 
-        while(curr !== null) {
-            if(curr.nodeKey === inputValue) {
+        let indexCount = 0;
+        while (curr !== null) {
+            if (curr.nodeKey === inputValue) {
                 return indexCount;
             }
             curr = curr.nextNode;
             indexCount += 1;
         }
-
 
         // return null if we went through the entire linked list and have not found a matching value
         return null;
@@ -218,23 +222,25 @@ export default function linkedList() {
     // inserts a node with the value at the given index
     function insertAt(inputKey, inputValue, givenIndex) {
         // if the linkedlist is empty AND the given index is not 0 (edge case 1), then return error message
-        if(head === null && givenIndex !== 0) {
-            return console.log("Head = null, linkedlist is empty and given index is NOT 0, exiting...");
+        if (head === null && givenIndex !== 0) {
+            return console.log(
+                "Head = null, linkedlist is empty and given index is NOT 0, exiting...",
+            );
         }
 
         // check if givenIndex is out of range of linkedList
-        if(givenIndex < 0 || givenIndex > (size() - 1)) {
+        if (givenIndex < 0 || givenIndex > size() - 1) {
             return console.log("Given index is out of range");
         }
 
         // check if givenIndex is 0. If it is, then just insert this node as the head/start of the list (prepend)
-        if(givenIndex === 0) {
+        if (givenIndex === 0) {
             prepend(inputValue, inputKey);
             return;
         }
 
         // check if givenIndex is size() -1, if it is then append it to the end of the list (append)
-        if(givenIndex === (size() - 1)) {
+        if (givenIndex === size() - 1) {
             append(inputValue, inputKey);
             return;
         }
@@ -243,7 +249,7 @@ export default function linkedList() {
         // if index passes all cases above, then iterate through list until we get to the desired index and make new node point to next node and previous node point to new node
         let curr = head;
         let prevNode;
-        for(let i = 0; i < givenIndex; i += 1) {
+        for (let i = 0; i < givenIndex; i += 1) {
             prevNode = curr;
             curr = curr.nextNode;
         }
@@ -272,18 +278,17 @@ export default function linkedList() {
     // removes the node at the given index
     function removeAt(givenIndex) {
         // if the linkedlist is empty (edge case 1), return error message
-        if(head === null) {
+        if (head === null) {
             return console.log("Head = null, linked list is empty");
         }
 
         // check if givenIndex is out of range of linkedList
-        if(givenIndex < 0 || givenIndex > (size() - 1)) {
+        if (givenIndex < 0 || givenIndex > size() - 1) {
             return console.log("Given index is out of range");
         }
 
-
         // check if index given is size()-1, end of the list (pop())
-        if(givenIndex === (size() - 1)) {
+        if (givenIndex === size() - 1) {
             pop();
             return;
         }
@@ -291,10 +296,10 @@ export default function linkedList() {
         let curr = head;
 
         // if index given is the first element, check if theres only 1 element (edge case 2)
-        if(givenIndex === 0 && curr.nextNode === null) {
+        if (givenIndex === 0 && curr.nextNode === null) {
             head = null;
             return;
-        } else if(givenIndex === 0 && curr.nextNode !== null) {
+        } else if (givenIndex === 0 && curr.nextNode !== null) {
             head = curr.nextNode;
             return;
         }
@@ -302,7 +307,7 @@ export default function linkedList() {
         // (edge case 3)
         // iterate through linked list until at given index, and re-wire previous node to point at the .nextNode.nextNode
         let prevNode;
-        for(let i = 0; i < givenIndex; i += 1) {
+        for (let i = 0; i < givenIndex; i += 1) {
             prevNode = curr;
             curr = curr.nextNode;
         }
@@ -311,28 +316,62 @@ export default function linkedList() {
         prevNode.nextNode = curr.nextNode;
     }
 
+    // finds and updates the existing node's value to the new value
     function updateExistingNode(key, newValue) {
         // if the linkedlist is empty (edge case 1), return error message
-        if(head === null) {
+        if (head === null) {
             return console.log("Head = null, linked list is empty");
         }
 
         const existingNodeIndex = find(key);
 
-
         // start at head node, and iterate until we get to the index
-        let curr = head; 
+        let curr = head;
 
         console.log(curr);
+
+        for (let i = 0; i < existingNodeIndex; i += 1) {
+            curr = curr.nextNode;
+        }
+
+        curr.nodeValue = newValue;
+
+        console.log(curr);
+    }
+
+    // gets the node value of the node with the key property, and returns the value
+    function getNodeValue(key) {
+        // if the linkedlist is empty (edge case 1), return error message
+        if (head === null) {
+            return console.log("Head = null, linked list is empty");
+        }
+
+        const existingNodeIndex = find(key);
+
+        let curr = head;
 
         for(let i = 0; i < existingNodeIndex; i += 1) {
             curr = curr.nextNode;
         }
 
-        curr.nodeValue  = newValue;
+        return curr.nodeValue;
 
-        console.log(curr);
     }
 
-    return { append, toString, size, prepend, getHead, getTail, at, pop, contains, find, insertAt, removeAt, updateExistingNode };
+    return {
+        append,
+        toString,
+        size,
+        prepend,
+        getHead,
+        getTail,
+        at,
+        pop,
+        contains,
+        find,
+        insertAt,
+        removeAt,
+        updateExistingNode,
+        getNodeValue
+    };
 }
