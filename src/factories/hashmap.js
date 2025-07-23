@@ -107,13 +107,98 @@ export default function hashMap() {
         return null;
     }
 
-    // function has(key) {}
+    // takes a key and returns true or false based on whether or not the key is in the hashmap
+    function has(key) {
+        /* 
+        note: since keys generate a specific hashcode and a location in the array, we can assume that
+        if its not in its hashed index location's linked list, then the key doesn't exist in the entire hashmap.
+        if it does exist, it has to be in that bucket's linked list.
+        */
 
-    // function remove(key) {}
+        // hash the key to get the index
+        const index = hash(key);
 
-    // function length() {}
+        console.log(index);
 
-    // function clear() {}
+        // limitation: see if index after hashing is within the bounds of our array length
+        if (index < 0 || index >= capacity) {
+            throw new Error("Trying to access index out of bounds");
+        }
+
+        // if there is no bucket found at the index from hash function:
+        if (bucketArr[index] === null || bucketArr[index] === undefined) {
+            console.log("has(): failed. Bucket linked list not found.");
+            return false;
+        }
+
+        // if there IS a bucket found at the index from hash function, then check linked list for key:
+        if (bucketArr[index] !== null || bucketArr[index] !== undefined) {
+            if (bucketArr[index].contains(key)) {
+                console.log(
+                    "has(): success. Key is located within this bucket linked list.",
+                );
+                return true;
+            }
+        }
+
+        // return false by default if the key is not found in the hashmap location
+        return false;
+    }
+
+    // takes a key and removes the entry with that key IF the given key exists in the hashmap. return true if remove is successful, return false if the key isn't in the hashmap.
+    function remove(key) {
+        // hash the key to get the index
+        const index = hash(key);
+
+        // limitation: see if index after hashing is within the bounds of our array length
+        if (index < 0 || index >= capacity) {
+            throw new Error("Trying to access index out of bounds");
+        }
+
+        // if there is no bucket found at the index from hash function:
+        if (bucketArr[index] === null || bucketArr[index] === undefined) {
+            console.log("remove(): failed. Bucket linked list not found.");
+            return false;
+        }
+
+        // if there IS a bucket found at the index from hash function, then check linked list for key and remove it:
+        if (bucketArr[index] !== null || bucketArr[index] !== undefined) {
+            if (bucketArr[index].contains(key)) {
+                bucketArr[index].removeAt(bucketArr[index].find(key));
+
+                console.log(
+                    "remove(): success. Key found, removing node from bucket linked list...",
+                );
+                return true;
+            }
+        }
+
+        // return false by default if remove operation was not completed
+        return false;
+    }
+
+    // returns the number of stored keys in the hashmap
+    function length() {
+        let keyCount = 0;
+
+        // iterate and use linked list size() function to count the total number of key nodes in the hashmap
+        for(let i = 0; i < bucketArr.length; i += 1) {
+            // skip empty array elements
+            if(bucketArr[i] === null || bucketArr[i] === undefined) {
+                continue; 
+            } else {
+                // add the total number of nodes from current bucket linked list
+                keyCount += bucketArr[i].size();
+            }   
+        }
+
+        return keyCount;
+    }
+
+    // removes all entries from hashmap
+    function clear() {
+        bucketArr = [];
+    }
 
     // function keys() {}
 
@@ -121,5 +206,5 @@ export default function hashMap() {
 
     // function entries() {}
 
-    return { hash, set, get };
+    return { hash, set, get, has, remove, length, clear };
 }
