@@ -38,3 +38,41 @@ newHashMap.set("lion", "golden");
 console.log(newHashMap.keys());
 console.log(newHashMap.values());
 console.log(newHashMap.entries());
+console.log(newHashMap.length());
+
+console.log(newHashMap.entries());
+
+newHashMap.set("apple", "GREEN");
+console.log(newHashMap.entries());
+
+newHashMap.set("moon", "silver");
+
+console.log(newHashMap.entries());
+
+// length() test
+console.log(newHashMap.length());
+
+// get() test
+console.log(newHashMap.get("lion"));
+
+// has() test
+console.log(newHashMap.has("lion"));
+console.log(newHashMap.has("BRUH"));
+
+// remove() test
+console.log(newHashMap.remove("lion"));
+console.log(newHashMap.entries());
+
+// keys() test
+console.log(newHashMap.keys());
+
+// values() test
+console.log(newHashMap.values());
+
+// entries() test
+console.log(newHashMap.entries());
+
+
+// clear() test
+newHashMap.clear();
+console.log(newHashMap.entries());

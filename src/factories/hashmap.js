@@ -5,7 +5,7 @@ export default function hashMap() {
     let bucketArr = [];
 
     // a factor to determine when to grow our buckets array
-    let loadFactor = 0.75;
+    const loadFactor = 0.75;
 
     // total buckets we currently have (usually starts with size 16)
     let capacity = 16;
@@ -77,7 +77,60 @@ export default function hashMap() {
             }
         }
 
-        // bucketsArray growth logic will go here later.
+        // after inserting a new entry into the hashmap, check if its time to grow or not
+        const currentGrowThresh = capacity * loadFactor;
+
+        // if the current length of the hashmap is bigger than our growing threshold, then grow the array by twice as much
+        if (length() > currentGrowThresh) {
+            console.log("GROW HASHMAP ACTIVATED. DOUBLING CAPACITY...");
+            capacity *= 2;
+            rehash();
+        }
+    }
+
+    // this function rehashes the entire hashmap if the array grows to evenly distribute the nodes to help with collisions
+    function rehash() {
+        const tempArr = [];
+
+        for (let i = 0; i < bucketArr.length; i += 1) {
+            // if there is no node in the index bucket, skip the index
+            if (bucketArr[i] === null || bucketArr[i] === undefined) {
+                continue;
+            } else {
+                const tempLinkedList = bucketArr[i];
+                let curr = tempLinkedList.getHead();
+                while (curr !== null) {
+                    const index = hash(curr.nodeKey);
+
+                    // limitation: see if index after hashing is within the bounds of our array length
+                    if (index < 0 || index >= capacity) {
+                        throw new Error("Trying to access index out of bounds");
+                    }
+
+                    // if the bucket is empty, append node to the end of the bucket linked list
+                    if (
+                        tempArr[index] === null ||
+                        tempArr[index] === undefined
+                    ) {
+                        tempArr[index] = linkedList();
+                        tempArr[index].append(curr.nodeKey, curr.nodeValue);
+                        continue;
+                    } else if (tempArr[index].contains(curr.nodeKey)) {
+                        tempArr[index].updateExistingNode(
+                            curr.nodeKey,
+                            curr.nodeValue,
+                        );
+                    } else {
+                        // if the key given DOESN'T exist in the linked list, then this is considered a collision (different key, but same index location from hashing). Append to the end of the linked list
+                        tempArr[index].append(curr.nodeKey, curr.nodeValue);
+                    }
+
+                    curr = curr.nextNode;
+                }
+            }
+        }
+
+        bucketArr = tempArr;
     }
 
     // takes in a key and returns the value that is assigned to this key. If the key is NOT found, then return null
@@ -117,8 +170,6 @@ export default function hashMap() {
 
         // hash the key to get the index
         const index = hash(key);
-
-        console.log(index);
 
         // limitation: see if index after hashing is within the bounds of our array length
         if (index < 0 || index >= capacity) {
@@ -182,14 +233,14 @@ export default function hashMap() {
         let keyCount = 0;
 
         // iterate and use linked list size() function to count the total number of key nodes in the hashmap
-        for(let i = 0; i < bucketArr.length; i += 1) {
+        for (let i = 0; i < bucketArr.length; i += 1) {
             // skip empty array elements
-            if(bucketArr[i] === null || bucketArr[i] === undefined) {
-                continue; 
+            if (bucketArr[i] === null || bucketArr[i] === undefined) {
+                continue;
             } else {
                 // add the total number of nodes from current bucket linked list
                 keyCount += bucketArr[i].size();
-            }   
+            }
         }
 
         return keyCount;
@@ -204,12 +255,12 @@ export default function hashMap() {
     function keys() {
         const keyArr = [];
 
-        for(let i = 0;  i < bucketArr.length; i += 1) {
+        for (let i = 0; i < bucketArr.length; i += 1) {
             // skip any empty buckets found
-            if(bucketArr[i] === null || bucketArr[i] === undefined) {
-                continue; 
+            if (bucketArr[i] === null || bucketArr[i] === undefined) {
+                continue;
             } else {
-            bucketArr[i].addKeysToArr(keyArr);
+                bucketArr[i].addKeysToArr(keyArr);
             }
         }
 
@@ -220,12 +271,12 @@ export default function hashMap() {
     function values() {
         const valArr = [];
 
-        for(let i = 0;  i < bucketArr.length; i += 1) {
+        for (let i = 0; i < bucketArr.length; i += 1) {
             // skip any empty buckets found
-            if(bucketArr[i] === null || bucketArr[i] === undefined) {
-                continue; 
+            if (bucketArr[i] === null || bucketArr[i] === undefined) {
+                continue;
             } else {
-            bucketArr[i].addValuesToArr(valArr);
+                bucketArr[i].addValuesToArr(valArr);
             }
         }
 
@@ -236,17 +287,29 @@ export default function hashMap() {
     function entries() {
         const entriesArr = [];
 
-        for(let i = 0;  i < bucketArr.length; i += 1) {
+        for (let i = 0; i < bucketArr.length; i += 1) {
             // skip any empty buckets found
-            if(bucketArr[i] === null || bucketArr[i] === undefined) {
-                continue; 
+            if (bucketArr[i] === null || bucketArr[i] === undefined) {
+                continue;
             } else {
-            bucketArr[i].addEntriesToArr(entriesArr);
+                bucketArr[i].addEntriesToArr(entriesArr);
             }
         }
 
         return entriesArr;
     }
 
-    return { hash, set, get, has, remove, length, clear, keys, values, entries };
+    return {
+        hash,
+        set,
+        get,
+        has,
+        remove,
+        length,
+        clear,
+        keys,
+        values,
+        entries,
+        rehash
+    };
 }

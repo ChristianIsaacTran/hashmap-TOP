@@ -328,15 +328,12 @@ export default function linkedList() {
         // start at head node, and iterate until we get to the index
         let curr = head;
 
-        console.log(curr);
-
         for (let i = 0; i < existingNodeIndex; i += 1) {
             curr = curr.nextNode;
         }
 
         curr.nodeValue = newValue;
 
-        console.log(curr);
     }
 
     // gets the node value of the node with the key property, and returns the value
