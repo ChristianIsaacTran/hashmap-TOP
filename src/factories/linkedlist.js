@@ -12,7 +12,7 @@ export default function linkedList() {
     */
 
     // adds new node to the end of the linked list
-    function append(inputValue, inputKey) {
+    function append(inputKey, inputValue) {
         // if the linkedlist is empty, add the node as the head (edge case 1)
         if (head === null) {
             head = nodes(inputValue, null, inputKey);
@@ -34,7 +34,7 @@ export default function linkedList() {
     }
 
     // adds a new node to the start of the linked list
-    function prepend(inputValue, inputKey) {
+    function prepend(inputKey, inputValue) {
         // if linkedlist is empty, add node as the head (edge case 1)
         if (head === null) {
             head = nodes(inputValue, null, inputKey);
@@ -216,7 +216,7 @@ export default function linkedList() {
     // extra credit functions:
 
     // inserts a node with the value at the given index
-    function insertAt(inputValue, givenIndex, inputKey) {
+    function insertAt(inputKey, inputValue, givenIndex) {
         // if the linkedlist is empty AND the given index is not 0 (edge case 1), then return error message
         if(head === null && givenIndex !== 0) {
             return console.log("Head = null, linkedlist is empty and given index is NOT 0, exiting...");
@@ -311,7 +311,7 @@ export default function linkedList() {
         prevNode.nextNode = curr.nextNode;
     }
 
-    function updateExistingNode(newValue, key) {
+    function updateExistingNode(key, newValue) {
         // if the linkedlist is empty (edge case 1), return error message
         if(head === null) {
             return console.log("Head = null, linked list is empty");

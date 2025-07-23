@@ -56,7 +56,7 @@ export default function hashMap() {
         // if there is no node in the index bucket:
         if(bucketArr[index] ===  null || bucketArr[index] === undefined) {
             bucketArr[index] = linkedList();
-            bucketArr[index].append(value, key);
+            bucketArr[index].append(key, value);
             return;
         }
 
@@ -64,9 +64,11 @@ export default function hashMap() {
         if(bucketArr[index] !== null || bucketArr[index] !== undefined) {
             // check if the key given already exists at the given bucket index, then update the node's value if it exists
             if(bucketArr[index].contains(key)) {
-                bucketArr[index].updateExistingNode(value, key);
+                console.log(`Same key detected: ${key}, updating existing value...`);
+                bucketArr[index].updateExistingNode(key, value);
             } else { 
                 // if the key given DOESN'T exist in the linked list, then this is considered a collision (different key, but same index location from hashing). Append to the end of the linked list
+                console.log(`Collision detected (different key, same index): ${key}, adding collision to end of linked list bucket`);
                 bucketArr[index].append(value, key);
             }
         }
