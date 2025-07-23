@@ -12,10 +12,10 @@ export default function linkedList() {
     */
 
     // adds new node to the end of the linked list
-    function append(inputValue) {
+    function append(inputValue, inputKey) {
         // if the linkedlist is empty, add the node as the head (edge case 1)
         if (head === null) {
-            head = nodes(inputValue, null);
+            head = nodes(inputValue, null, inputKey);
             return;
         }
 
@@ -30,14 +30,14 @@ export default function linkedList() {
         }
 
         // add given node to the end of the list by making the previous last node point to the new last node
-        curr.nextNode = nodes(inputValue, null);
+        curr.nextNode = nodes(inputValue, null, inputKey);
     }
 
     // adds a new node to the start of the linked list
-    function prepend(inputValue) {
+    function prepend(inputValue, inputKey) {
         // if linkedlist is empty, add node as the head (edge case 1)
         if (head === null) {
-            head = nodes(inputValue, null);
+            head = nodes(inputValue, null, inputKey);
             return;
         }
 
@@ -45,7 +45,7 @@ export default function linkedList() {
         /* make two temporary variables, one for the head and one for the new node to insert, then assign the new node to point to the head node, 
         then make the new node the head. */
         const curr = head;
-        const temp = nodes(inputValue, curr);
+        const temp = nodes(inputValue, curr, inputKey);
         head = temp;
     }
 
@@ -157,7 +157,7 @@ export default function linkedList() {
         // iterate through the linkedlist from the head and check if the current node's value matches the input value, or until we reach the end of the linkedlist
         let curr = head; 
         while(curr !== null) {
-            if(curr.value === inputValue) {
+            if(curr.nodeKey === inputValue) {
                 return true;
             }
             curr = curr.nextNode;
@@ -183,7 +183,7 @@ export default function linkedList() {
         // return index of found node (assuming 0 index)
         let indexCount = 0; 
         while(curr !== null) {
-            if(curr.value === inputValue) {
+            if(curr.nodeKey === inputValue) {
                 return indexCount;
             }
             curr = curr.nextNode;
@@ -204,7 +204,7 @@ export default function linkedList() {
         let curr = head;
 
         while (curr !== null) {
-            console.log(`( ${curr.value} ) ->`);
+            console.log(`( ${curr.nodeKey} ) ->`);
             curr = curr.nextNode;
         }
 
@@ -216,7 +216,7 @@ export default function linkedList() {
     // extra credit functions:
 
     // inserts a node with the value at the given index
-    function insertAt(inputValue, givenIndex) {
+    function insertAt(inputValue, givenIndex, inputKey) {
         // if the linkedlist is empty AND the given index is not 0 (edge case 1), then return error message
         if(head === null && givenIndex !== 0) {
             return console.log("Head = null, linkedlist is empty and given index is NOT 0, exiting...");
@@ -229,13 +229,13 @@ export default function linkedList() {
 
         // check if givenIndex is 0. If it is, then just insert this node as the head/start of the list (prepend)
         if(givenIndex === 0) {
-            prepend(inputValue);
+            prepend(inputValue, inputKey);
             return;
         }
 
         // check if givenIndex is size() -1, if it is then append it to the end of the list (append)
         if(givenIndex === (size() - 1)) {
-            append(inputValue);
+            append(inputValue, inputKey);
             return;
         }
 
@@ -249,7 +249,7 @@ export default function linkedList() {
         }
 
         // new node inserted at the current node's index will point to the current node, and the previous node will point to the new created node.
-        const newNode = nodes(inputValue, curr);
+        const newNode = nodes(inputValue, curr, inputKey);
         prevNode.nextNode = newNode;
 
         /*
@@ -311,5 +311,28 @@ export default function linkedList() {
         prevNode.nextNode = curr.nextNode;
     }
 
-    return { append, toString, size, prepend, getHead, getTail, at, pop, contains, find, insertAt, removeAt };
+    function updateExistingNode(newValue, key) {
+        // if the linkedlist is empty (edge case 1), return error message
+        if(head === null) {
+            return console.log("Head = null, linked list is empty");
+        }
+
+        const existingNodeIndex = find(key);
+
+
+        // start at head node, and iterate until we get to the index
+        let curr = head; 
+
+        console.log(curr);
+
+        for(let i = 0; i < existingNodeIndex; i += 1) {
+            curr = curr.nextNode;
+        }
+
+        curr.nodeValue  = newValue;
+
+        console.log(curr);
+    }
+
+    return { append, toString, size, prepend, getHead, getTail, at, pop, contains, find, insertAt, removeAt, updateExistingNode };
 }
